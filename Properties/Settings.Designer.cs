@@ -61,18 +61,6 @@ namespace Scope3DView.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ReloadModelNeeded {
-            get {
-                return ((bool)(this["ReloadModelNeeded"]));
-            }
-            set {
-                this["ReloadModelNeeded"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public int PollingInterval {
             get {
@@ -224,18 +212,6 @@ namespace Scope3DView.Properties {
             }
             set {
                 this["DecOffset"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ResetCameraNeeded {
-            get {
-                return ((bool)(this["ResetCameraNeeded"]));
-            }
-            set {
-                this["ResetCameraNeeded"] = value;
             }
         }
     }

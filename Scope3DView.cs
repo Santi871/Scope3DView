@@ -2,8 +2,10 @@
 using NINA.Plugin.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Scope3DView.Classes;
@@ -18,7 +20,7 @@ namespace Scope3DView {
     /// The user interface for the settings will be defined by a DataTemplate with the key having the naming convention "<MyPlugin.Name>_Options" where MyPlugin.Name corresponds to the AssemblyTitle - In this template example it is found in the Options.xaml
     /// </summary>
     [Export(typeof(IPluginManifest))]
-    public class Scope3DView : PluginBase {
+    public class Scope3DView : PluginBase, INotifyPropertyChanged {
 
         [ImportingConstructor]
         public Scope3DView() {
@@ -28,13 +30,19 @@ namespace Scope3DView {
                 Settings.Default.Save();
             }
         }
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public string OtaAccentColor {
             get => Settings.Default.OtaAccentColor;
             set {
                 Settings.Default.OtaAccentColor = value;
                 Settings.Default.Save();
-                Settings.Default.ReloadModelNeeded = true;
+                NotifyPropertyChanged();
             }
         }
 
@@ -45,7 +53,7 @@ namespace Scope3DView {
             {
                 Settings.Default.ModelType = value;
                 Settings.Default.Save();
-                Settings.Default.ReloadModelNeeded = true;
+                NotifyPropertyChanged();
             }
         }
 
@@ -56,6 +64,7 @@ namespace Scope3DView {
             {
                 Settings.Default.PollingInterval = value;
                 Settings.Default.Save();
+                NotifyPropertyChanged();
             }
         }
 
@@ -66,6 +75,7 @@ namespace Scope3DView {
             {
                 Settings.Default.CameraFov = value;
                 Settings.Default.Save();
+                NotifyPropertyChanged();
             }
         }
 
@@ -76,7 +86,7 @@ namespace Scope3DView {
             {
                 Settings.Default.LookDirectionX = value;
                 Settings.Default.Save();
-                Settings.Default.ResetCameraNeeded = true;
+                NotifyPropertyChanged();
             }
         }
         public double LookDirectionY
@@ -86,7 +96,7 @@ namespace Scope3DView {
             {
                 Settings.Default.LookDirectionY = value;
                 Settings.Default.Save();
-                Settings.Default.ResetCameraNeeded = true;
+                NotifyPropertyChanged();
             }
         }
         public double LookDirectionZ
@@ -96,7 +106,7 @@ namespace Scope3DView {
             {
                 Settings.Default.LookDirectionZ = value;
                 Settings.Default.Save();
-                Settings.Default.ResetCameraNeeded = true;
+                NotifyPropertyChanged();
             }
         }
 
@@ -107,7 +117,7 @@ namespace Scope3DView {
             {
                 Settings.Default.CameraPositionX = value;
                 Settings.Default.Save();
-                Settings.Default.ResetCameraNeeded = true;
+                NotifyPropertyChanged();
             }
         }
         
@@ -118,7 +128,7 @@ namespace Scope3DView {
             {
                 Settings.Default.CameraPositionY = value;
                 Settings.Default.Save();
-                Settings.Default.ResetCameraNeeded = true;
+                NotifyPropertyChanged();
             }
         }
         
@@ -129,7 +139,7 @@ namespace Scope3DView {
             {
                 Settings.Default.CameraPositionZ = value;
                 Settings.Default.Save();
-                Settings.Default.ResetCameraNeeded = true;
+                NotifyPropertyChanged();
             }
         }
 
@@ -140,7 +150,7 @@ namespace Scope3DView {
             {
                 Settings.Default.UpDirectionX = value;
                 Settings.Default.Save();
-                Settings.Default.ResetCameraNeeded = true;
+                NotifyPropertyChanged();
             }
         }
         
@@ -151,7 +161,7 @@ namespace Scope3DView {
             {
                 Settings.Default.UpDirectionY = value;
                 Settings.Default.Save();
-                Settings.Default.ResetCameraNeeded = true;
+                NotifyPropertyChanged();
             }
         }
         
@@ -162,6 +172,7 @@ namespace Scope3DView {
             {
                 Settings.Default.UpDirectionZ = value;
                 Settings.Default.Save();
+                NotifyPropertyChanged();
             }
         }
 
@@ -172,7 +183,7 @@ namespace Scope3DView {
             {
                 Settings.Default.RaOffset = value;
                 Settings.Default.Save();
-                Settings.Default.ReloadModelNeeded = true;
+                NotifyPropertyChanged();
             }
         }
 
@@ -183,7 +194,7 @@ namespace Scope3DView {
             {
                 Settings.Default.DecOffset = value;
                 Settings.Default.Save();
-                Settings.Default.ReloadModelNeeded = true;
+                NotifyPropertyChanged();
             }
         }
     }
