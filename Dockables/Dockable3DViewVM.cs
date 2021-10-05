@@ -41,11 +41,12 @@ namespace Scope3DView.Dockables
             Title = "3D View";
             _telescopeMediator = telescopeMediator;
             _axes = new Axes(_telescopeMediator);
+            Settings.Default.PropertyChanged += OnSettingChanged;
 
-            // force load the 3D model and reset camera at startup
-            Settings.Default.ReloadModelNeeded = true;
-            Settings.Default.ResetCameraNeeded = true;
-            
+            // load the 3D model and reset camera on startup
+            Application.Current.Dispatcher.Invoke(LoadModel);
+            ResetCamera();
+
             try
             {
                 _compassN = MaterialHelper.CreateImageMaterial(Model3D.GetCompassFile(false), 100);
@@ -231,6 +232,34 @@ namespace Scope3DView.Dockables
         public double SideRealtime => _telescopeMediator.GetInfo().SiderealTime;
         
         #endregion
+
+        private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Logger.Debug($"Scope 3D View setting changed: {e.PropertyName}");
+
+            switch (e.PropertyName)
+            {
+                case "RaOffset":
+                case "DecOffset":
+                case "OtaAccentColor":
+                case "ModelType":
+                    Application.Current.Dispatcher.Invoke(LoadModel);
+                    break;
+                
+                case "LookDirectionX":
+                case "LookDirectionY":
+                case "LookDirectionZ":
+                case "UpDirectionX":
+                case "UpDirectionY":
+                case "UpDirectionZ":
+                case "CameraPositionX":
+                case "CameraPositionY":
+                case "CameraPositionZ":
+                case "CameraFov":
+                    ResetCamera();
+                    break;
+            }
+        }
         
         private async Task TelescopePollingTask(TimeSpan pollInterval)
         {
@@ -259,10 +288,6 @@ namespace Scope3DView.Dockables
                         Compass = null;
                     }
                     
-                    // attempt to reload model and reset camera every loop, will only actually reload if requested by
-                    // a change in settings
-                    Application.Current.Dispatcher.Invoke(LoadModel);
-                    ResetCamera();
                     await Task.Delay(pollInterval, _cancellationTokenSource.Token);
                 }
             }
@@ -270,8 +295,6 @@ namespace Scope3DView.Dockables
 
         private void ResetCamera()
         {
-            if (!Settings.Default.ResetCameraNeeded) return;
-            
             var lookDirectionX = Settings.Default.LookDirectionX;
             var lookDirectionY = Settings.Default.LookDirectionY;
             var lookDirectionZ = Settings.Default.LookDirectionZ;
@@ -287,15 +310,12 @@ namespace Scope3DView.Dockables
             LookDirection = new Vector3D(lookDirectionX, lookDirectionY, lookDirectionZ);
             UpDirection = new Vector3D(upDirectionX, upDirectionY, upDirectionZ);
             Position = new Point3D(cameraPositionX, cameraPositionY, cameraPositionZ);
-
-            Settings.Default.ResetCameraNeeded = false;
         }
 
         private void LoadModel()
         {
             var import = new ModelImporter();
-            if (!Settings.Default.ReloadModelNeeded) return;
-            
+
             Logger.Info($"Attempting to load telescope model {Settings.Default.ModelType}");
             var result = Enum.TryParse(Settings.Default.ModelType, out Model3DType modelType);
             Model3DGroup model = null;
@@ -336,8 +356,6 @@ namespace Scope3DView.Dockables
             //color bar
             var materialbar = MaterialHelper.CreateMaterial(Brushes.Gainsboro);
             if (model?.Children[2] is GeometryModel3D bar) bar.Material = materialbar;
-            Settings.Default.ReloadModelNeeded = false;
-            ResetCamera();
             Logger.Info($"Telescope model {Settings.Default.ModelType} loaded");
         }
 
