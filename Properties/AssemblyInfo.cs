@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 // The url to the license
 [assembly: AssemblyMetadata("LicenseURL", "https://www.gnu.org/licenses/gpl-3.0.txt")]
 // The repository where your pluggin is hosted
-[assembly: AssemblyMetadata("Repository", "https://bitbucket.org/Isbeorn/nina.plugin.template/")]
+[assembly: AssemblyMetadata("Repository", "https://github.com/Santi871/Scope3DView")]
 
 
 // The following attributes are optional for the official manifest meta data
@@ -44,16 +44,16 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("Tags", "Template,Sequencer")]
 
 //[Optional] A link that will show a log of all changes in between your plugin's versions
-[assembly: AssemblyMetadata("ChangelogURL", "https://bitbucket.org/Isbeorn/nina.plugin.template/commits/branch/master")]
+[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/Santi871/Scope3DView/commits/master")]
 
 //[Optional] The url to a featured logo that will be displayed in the plugin list next to the name
-[assembly: AssemblyMetadata("FeaturedImageURL", "")]
+[assembly: AssemblyMetadata("FeaturedImageURL", "https://github.com/Santi871/Scope3DView/blob/master/Images/Screenshot1.png?raw=true")]
 //[Optional] A url to an example screenshot of your plugin in action
-[assembly: AssemblyMetadata("ScreenshotURL", "")]
+[assembly: AssemblyMetadata("ScreenshotURL", "https://github.com/Santi871/Scope3DView/blob/master/Images/Screenshot2.png?raw=true")]
 //[Optional] An additional url to an example example screenshot of your plugin in action
-[assembly: AssemblyMetadata("AltScreenshotURL", "")]
+[assembly: AssemblyMetadata("AltScreenshotURL", "https://github.com/Santi871/Scope3DView/blob/master/Images/Screenshot3.png?raw=true")]
 //[Optional] An in-depth description of your plugin
-[assembly: AssemblyMetadata("LongDescription", @"This plugin adds a dockable 3D view of the connected telescope. Ported from GSPoint3D: https://github.com/rmorgan001/GS.Point3d")]
+[assembly: AssemblyMetadata("LongDescription", @"This plugin adds a dockable 3D view of the connected telescope. Ported from [GSPoint3D](https://github.com/rmorgan001/GS.Point3d).")]
 
 
 // Setting ComVisible to false makes the types in this assembly not visible
