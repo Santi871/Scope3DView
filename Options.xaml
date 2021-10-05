@@ -1,0 +1,128 @@
+﻿<!--
+    Copyright © 2016 - 2021 Stefan Berg <isbeorn86+NINA@googlemail.com> and the N.I.N.A. contributors
+
+    This file is part of N.I.N.A. - Nighttime Imaging 'N' Astronomy.
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.-->
+<ResourceDictionary
+    x:Class="Scope3DView.Options"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:utility="clr-namespace:NINA.Core.Utility;assembly=NINA.Core"
+    xmlns:helpers="clr-namespace:Scope3DView.Classes"
+    xmlns:ninactrl="clr-namespace:NINACustomControlLibrary;assembly=NINACustomControlLibrary">
+    <!--  This data template will be displayed in N.I.N.A. on the options->plugin tab with the datacontext of the TestPlugin instance  -->
+    <!--  In order for this datatemplate to be picked correctly, the key has to follow the naming convention of <IPlugin.Name>_Options -->
+    <!--  Furthermore the Resource Dictionary has to be exported via code behind export attributes  -->
+    <DataTemplate x:Key="Scope 3D View_Options">
+        <StackPanel DataContext="{Binding}" Orientation="Vertical" Margin="0,10,0,0">
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Width="200" Text="Telescope accent color" VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>
+                <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="hex" MinWidth="140" Text="{Binding OtaAccentColor}" />
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Width="200" Text="Telescope model" VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>
+                <ComboBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" ToolTip="Model" ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type helpers:Model3DType}}}">
+                    <ComboBox.Text>
+                        <Binding Path="ModelType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+                    </ComboBox.Text>
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Width="200" Text="Camera FOV" VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>
+                <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="°" MinWidth="140" Text="{Binding CameraFov}" />
+            </StackPanel>
+            
+            <Expander Header="Advanced options" IsExpanded="false">
+                <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Polling interval (requires restart)" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="ms" MinWidth="140" Text="{Binding PollingInterval}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Model RA offset" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="°" MinWidth="140" Text="{Binding RaOffset}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Model Dec offset" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="°" MinWidth="140" Text="{Binding DecOffset}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Camera starting look direction X" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding LookDirectionX}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Camera starting look direction Y" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding LookDirectionY}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Camera starting look direction Z" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding LookDirectionZ}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Camera starting position X" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding CameraPositionX}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Camera starting position Y" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding CameraPositionY}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Camera starting position Z" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding CameraPositionZ}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Up direction X" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding UpDirectionX}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Up direction Y" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding UpDirectionY}" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Width="200" Text="Up direction Z" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding UpDirectionZ}" />
+                    </StackPanel>
+                    
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

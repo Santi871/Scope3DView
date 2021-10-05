@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Scope3DView.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UpdateSettings" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="OtaAccentColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FFF44336</Value>
+    </Setting>
+    <Setting Name="ModelType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="ReloadModelNeeded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PollingInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="LookDirectionX" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-2616</Value>
+    </Setting>
+    <Setting Name="LookDirectionY" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-3167</Value>
+    </Setting>
+    <Setting Name="LookDirectionZ" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-1170</Value>
+    </Setting>
+    <Setting Name="UpDirectionX" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.35</Value>
+    </Setting>
+    <Setting Name="UpDirectionY" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.43</Value>
+    </Setting>
+    <Setting Name="UpDirectionZ" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.82</Value>
+    </Setting>
+    <Setting Name="CameraPositionX" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2523</Value>
+    </Setting>
+    <Setting Name="CameraPositionY" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">3000</Value>
+    </Setting>
+    <Setting Name="CameraPositionZ" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1379</Value>
+    </Setting>
+    <Setting Name="CameraFov" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="RaOffset" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-90</Value>
+    </Setting>
+    <Setting Name="DecOffset" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="ResetCameraNeeded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
+
