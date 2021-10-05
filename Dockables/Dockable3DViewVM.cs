@@ -41,7 +41,7 @@ namespace Scope3DView.Dockables
             Title = "3D View";
             _telescopeMediator = telescopeMediator;
             _axes = new Axes(_telescopeMediator);
-            
+
             // force load the 3D model and reset camera at startup
             Settings.Default.ReloadModelNeeded = true;
             Settings.Default.ResetCameraNeeded = true;
@@ -328,14 +328,14 @@ namespace Scope3DView.Dockables
             }
 
             var materialota = MaterialHelper.CreateMaterial(accentbrush);
-            if (model.Children[0] is GeometryModel3D ota) ota.Material = materialota;
+            if (model?.Children[0] is GeometryModel3D ota) ota.Material = materialota;
 
             //color weights
             var materialweights = MaterialHelper.CreateMaterial(new SolidColorBrush(Color.FromRgb(64, 64, 64)));
-            if (model.Children[1] is GeometryModel3D weights) weights.Material = materialweights;
+            if (model?.Children[1] is GeometryModel3D weights) weights.Material = materialweights;
             //color bar
             var materialbar = MaterialHelper.CreateMaterial(Brushes.Gainsboro);
-            if (model.Children[2] is GeometryModel3D bar) bar.Material = materialbar;
+            if (model?.Children[2] is GeometryModel3D bar) bar.Material = materialbar;
             Settings.Default.ReloadModelNeeded = false;
             ResetCamera();
             Logger.Info($"Telescope model {Settings.Default.ModelType} loaded");
