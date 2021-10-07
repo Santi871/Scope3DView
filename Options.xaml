@@ -20,15 +20,24 @@
         <StackPanel DataContext="{Binding}" Orientation="Vertical" Margin="0,10,0,0">
             
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Width="200" Text="Telescope accent color" VerticalAlignment="Center"
+                <TextBlock Width="200" Text="Theme-based telescope color" VerticalAlignment="Center"
                            HorizontalAlignment="Right"/>
-                <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="hex" MinWidth="140" Text="{Binding OtaAccentColor}" />
+                <CheckBox MinWidth="40" Margin="5,0,0,0" VerticalAlignment="Center"
+                          IsChecked="{Binding AutoOtaColorChange}" Name="AutoColorCheckbox"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Width="200" Text="Telescope color" VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>
+                <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="hex" MinWidth="140"
+                                      Text="{Binding OtaAccentColor}" IsEnabled="{Binding AutoOtaColorChangeEnabled}"/>
             </StackPanel>
             
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <TextBlock Width="200" Text="Telescope model" VerticalAlignment="Center"
                            HorizontalAlignment="Right"/>
-                <ComboBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" ToolTip="Model" ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type helpers:Model3DType}}}">
+                <ComboBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" ToolTip="Model"
+                          ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type helpers:Model3DType}}}">
                     <ComboBox.Text>
                         <Binding Path="ModelType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
                     </ComboBox.Text>

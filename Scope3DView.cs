@@ -37,6 +37,24 @@ namespace Scope3DView {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public bool AutoOtaColorChange
+        {
+            get => Settings.Default.AutoOtaColorChange;
+            set
+            {
+                Settings.Default.AutoOtaColorChange = value;
+                Settings.Default.Save();
+                AutoOtaColorChangeEnabled = !value;
+                NotifyPropertyChanged();
+            }
+        }
+        
+        public bool AutoOtaColorChangeEnabled
+        {
+            get => !Settings.Default.AutoOtaColorChange;
+            set => NotifyPropertyChanged();
+        }
+
         public string OtaAccentColor {
             get => Settings.Default.OtaAccentColor;
             set {

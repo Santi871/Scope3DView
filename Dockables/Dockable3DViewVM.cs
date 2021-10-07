@@ -27,6 +27,7 @@ namespace Scope3DView.Dockables
     public class Dockable3DViewVM : DockableVM
     {
         private readonly ITelescopeMediator _telescopeMediator;
+        private readonly IProfileService _profileService;
         private readonly Axes _axes;
         private readonly Material _compassN, _compassS;
         private CancellationTokenSource _cancellationTokenSource;
@@ -39,9 +40,11 @@ namespace Scope3DView.Dockables
             ) : base(profileService)
         {
             Title = "3D View";
+            _profileService = profileService;
             _telescopeMediator = telescopeMediator;
             _axes = new Axes(_telescopeMediator);
             Settings.Default.PropertyChanged += OnSettingChanged;
+            _profileService.ActiveProfile.ColorSchemaSettings.PropertyChanged += ColorSchemaSettingsOnPropertyChanged;
 
             // load the 3D model and reset camera on startup
             Application.Current.Dispatcher.Invoke(LoadModel);
@@ -232,7 +235,12 @@ namespace Scope3DView.Dockables
         public double SideRealtime => _telescopeMediator.GetInfo().SiderealTime;
         
         #endregion
-
+        
+        private void ColorSchemaSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(LoadModel);
+        }
+        
         private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
         {
             Logger.Debug($"Scope 3D View setting changed: {e.PropertyName}");
@@ -242,6 +250,7 @@ namespace Scope3DView.Dockables
                 case "RaOffset":
                 case "DecOffset":
                 case "OtaAccentColor":
+                case "AutoOtaColorChange":
                 case "ModelType":
                     Application.Current.Dispatcher.Invoke(LoadModel);
                     break;
@@ -312,6 +321,28 @@ namespace Scope3DView.Dockables
             Position = new Point3D(cameraPositionX, cameraPositionY, cameraPositionZ);
         }
 
+        private Brush GetOtaBrush()
+        {
+            var converter = new BrushConverter();
+            var color = profileService.ActiveProfile.ColorSchemaSettings.ColorSchema.ButtonBackgroundColor;
+            Brush accentbrush = new SolidColorBrush(color);
+            if (Settings.Default.AutoOtaColorChange) return accentbrush;
+            
+            try
+            {
+                accentbrush = (Brush)converter.ConvertFromString($"#{Settings.Default.OtaAccentColor}");
+            } catch (FormatException)
+            {
+                Notification.ShowWarning($"Scope 3D View invalid telescope color string" +
+                                         $" #{Settings.Default.OtaAccentColor}, using theme-based color instead");
+
+                Logger.Warning(
+                    $"Invalid telescope color string #{Settings.Default.OtaAccentColor}," +
+                    $" using theme-based color instead");
+            }
+            return accentbrush;
+        }
+
         private void LoadModel()
         {
             var import = new ModelImporter();
@@ -319,7 +350,7 @@ namespace Scope3DView.Dockables
             Logger.Info($"Attempting to load telescope model {Settings.Default.ModelType}");
             var result = Enum.TryParse(Settings.Default.ModelType, out Model3DType modelType);
             Model3DGroup model = null;
-            
+
             try
             {
                 model = import.Load(result ? Model3D.GetModelFile(modelType) : Model3D.GetModelFile(Model3DType.Default));
@@ -331,22 +362,8 @@ namespace Scope3DView.Dockables
             }
 
             Model = model;
-
-            const string fallbackAccentColor = "FFF44336";
-            var converter = new BrushConverter();
-            var accentbrush = (Brush)converter.ConvertFromString($"#{fallbackAccentColor}");
-
-            try
-            {
-                accentbrush = (Brush)converter.ConvertFromString($"#{Settings.Default.OtaAccentColor}");
-            } catch (FormatException)
-            {
-                Notification.ShowWarning($"Scope 3D View invalid telescope hex color string" +
-                                         $" #{Settings.Default.OtaAccentColor}, using fallback color #{fallbackAccentColor}");
-                
-                Logger.Warning($"Invalid telescope hex color string #{Settings.Default.OtaAccentColor}, using fallback color #{fallbackAccentColor}");
-            }
-
+            var accentbrush = GetOtaBrush();
+            
             var materialota = MaterialHelper.CreateMaterial(accentbrush);
             if (model?.Children[0] is GeometryModel3D ota) ota.Material = materialota;
 

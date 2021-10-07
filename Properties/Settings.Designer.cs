@@ -214,5 +214,17 @@ namespace Scope3DView.Properties {
                 this["DecOffset"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoOtaColorChange {
+            get {
+                return ((bool)(this["AutoOtaColorChange"]));
+            }
+            set {
+                this["AutoOtaColorChange"] = value;
+            }
+        }
     }
 }

@@ -50,6 +50,9 @@
     <Setting Name="DecOffset" Type="System.Double" Scope="User">
       <Value Profile="(Default)">90</Value>
     </Setting>
+    <Setting Name="AutoOtaColorChange" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
 
