@@ -40,6 +40,14 @@ namespace Scope3DView.Dockables
             ) : base(profileService)
         {
             Title = "3D View";
+            
+            var dict = new ResourceDictionary
+            {
+                Source = new Uri("Scope3DView;component/Options.xaml", UriKind.RelativeOrAbsolute)
+            };
+            ImageGeometry = (GeometryGroup)dict["Scope3DView_SVG"];
+            ImageGeometry.Freeze();
+            
             _profileService = profileService;
             _telescopeMediator = telescopeMediator;
             _telescopeModel = new TelescopeModel(_telescopeMediator);
