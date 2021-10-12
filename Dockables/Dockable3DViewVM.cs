@@ -28,7 +28,7 @@ namespace Scope3DView.Dockables
     {
         private readonly ITelescopeMediator _telescopeMediator;
         private readonly IProfileService _profileService;
-        private readonly Axes _axes;
+        private readonly ITelescopeModel _telescopeModel;
         private readonly Material _compassN, _compassS;
         private CancellationTokenSource _cancellationTokenSource;
         private bool? _previouslySouthern;
@@ -42,10 +42,10 @@ namespace Scope3DView.Dockables
             Title = "3D View";
             _profileService = profileService;
             _telescopeMediator = telescopeMediator;
-            _axes = new Axes(_telescopeMediator);
+            _telescopeModel = new TelescopeModel(_telescopeMediator);
             Settings.Default.PropertyChanged += OnSettingChanged;
             _profileService.ActiveProfile.ColorSchemaSettings.PropertyChanged += ColorSchemaSettingsOnPropertyChanged;
-
+            
             // load the 3D model and reset camera on startup
             Application.Current.Dispatcher.Invoke(LoadModel);
             ResetCamera();
@@ -288,8 +288,10 @@ namespace Scope3DView.Dockables
                         }
                         
                         // poll scope position and rotate the 3D model
-                        var raDec = Poll();
-                        Rotate(raDec[0], raDec[1]);
+                        var newPosition = _telescopeModel.GetModelRotation();
+                        XAxis = newPosition[1];
+                        YAxis = newPosition[0];
+                        ZAxis = newPosition[2];
                     }
                     else
                     {
@@ -345,51 +347,22 @@ namespace Scope3DView.Dockables
 
         private void LoadModel()
         {
-            var import = new ModelImporter();
-
             Logger.Info($"Attempting to load telescope model {Settings.Default.ModelType}");
             var result = Enum.TryParse(Settings.Default.ModelType, out Model3DType modelType);
+            var accentbrush = GetOtaBrush();
+            
             Model3DGroup model = null;
-
             try
             {
-                model = import.Load(result ? Model3D.GetModelFile(modelType) : Model3D.GetModelFile(Model3DType.Default));
+                model = _telescopeModel.LoadModel(result ? modelType : Model3DType.Default, accentbrush);
             }
             catch (FileNotFoundException e)
             {
                 Notification.ShowError($"Scope 3D View failed to load 3D model files: {e.Message}");
                 Logger.Error($"Failed to load telescope 3D model files: {e.Message}");
             }
-
             Model = model;
-            var accentbrush = GetOtaBrush();
-            
-            var materialota = MaterialHelper.CreateMaterial(accentbrush);
-            if (model?.Children[0] is GeometryModel3D ota) ota.Material = materialota;
-
-            //color weights
-            var materialweights = MaterialHelper.CreateMaterial(new SolidColorBrush(Color.FromRgb(64, 64, 64)));
-            if (model?.Children[1] is GeometryModel3D weights) weights.Material = materialweights;
-            //color bar
-            var materialbar = MaterialHelper.CreateMaterial(Brushes.Gainsboro);
-            if (model?.Children[2] is GeometryModel3D bar) bar.Material = materialbar;
             Logger.Info($"Telescope model {Settings.Default.ModelType} loaded");
-        }
-
-        private double[] Poll()
-        {
-            var pos = _telescopeMediator.GetCurrentPosition();
-            var raDec = _axes.RaDecToAxesXY(AlignMode.algGermanPolar, new[]{pos.RA, pos.Dec});
-            return raDec;
-        }
-        
-        private void Rotate(double axis0, double axis1)
-        {
-            var axes = Model3D.RotateModel( axis0, axis1, SouthernHemisphere);
-            YAxis = axes[0];
-            XAxis = axes[1];
-            //TODO only set when telescope connected
-            ZAxis = Math.Round(Math.Abs(_telescopeMediator.GetInfo().SiteLatitude), 2);
         }
     }
 }

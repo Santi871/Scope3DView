@@ -243,6 +243,7 @@
   <ItemGroup>
     <Compile Include="Classes\Axes.cs" />
     <Compile Include="Classes\Model3D.cs" />
+    <Compile Include="Classes\TelescopeModel.cs" />
     <Compile Include="Dockables\Dockable3DViewVM.cs" />
     <Compile Include="Dockables\DockableDataTemplates.xaml.cs">
       <DependentUpon>DockableDataTemplates.xaml</DependentUpon>
