@@ -57,7 +57,7 @@ namespace Scope3DView.Classes
         }
         public static double[] RotateModel(double ax, double ay, bool southernHemisphere)
         {
-            var axes = new[] { 0.0, 0.0 };
+            var axes = new[] { 0.0, 0.0, 0.0 };
             if (southernHemisphere)
             {
                 axes[0] = Math.Round(180 - ax, 3);
