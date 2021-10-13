@@ -135,6 +135,8 @@
                         <TextBox Margin="5,0,0,0" VerticalAlignment="Center" MinWidth="140" Text="{Binding UpDirectionZ}" />
                     </StackPanel>
                     
+                    <Button Command="{Binding Path=ResetSettingsCommand}" Width="100" Height="30" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left">Reset to default</Button>
+                    
                 </StackPanel>
             </Expander>
         </StackPanel>

@@ -1,14 +1,10 @@
 ﻿using NINA.Plugin;
 using NINA.Plugin.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Scope3DView.Classes;
+using System.Windows.Input;
+using NINA.Core.Utility;
 using Scope3DView.Properties;
 
 namespace Scope3DView {
@@ -20,8 +16,8 @@ namespace Scope3DView {
     /// The user interface for the settings will be defined by a DataTemplate with the key having the naming convention "<MyPlugin.Name>_Options" where MyPlugin.Name corresponds to the AssemblyTitle - In this template example it is found in the Options.xaml
     /// </summary>
     [Export(typeof(IPluginManifest))]
-    public class Scope3DView : PluginBase, INotifyPropertyChanged {
-
+    public class Scope3DView : PluginBase, INotifyPropertyChanged
+    {
         [ImportingConstructor]
         public Scope3DView() {
             if (Settings.Default.UpdateSettings) {
@@ -36,7 +32,19 @@ namespace Scope3DView {
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        
+        #region Properties
 
+        private ICommand _resetSettingsCommand;
+        public ICommand ResetSettingsCommand
+        {
+            get
+            {
+                _resetSettingsCommand = new RelayCommand(param => ResetSettings());
+                return _resetSettingsCommand;
+            }
+        }
+        
         public bool AutoOtaColorChange
         {
             get => Settings.Default.AutoOtaColorChange;
@@ -214,6 +222,24 @@ namespace Scope3DView {
                 Settings.Default.Save();
                 NotifyPropertyChanged();
             }
+        }
+        
+        #endregion
+
+        private void ResetSettings()
+        {
+            PollingInterval = 100;
+            RaOffset = -90;
+            DecOffset = 90;
+            LookDirectionX = -2616;
+            LookDirectionY = -3167;
+            LookDirectionZ = -1170;
+            CameraPositionX = 2523;
+            CameraPositionY = 3000;
+            CameraPositionZ = 1379;
+            UpDirectionX = 0.35;
+            UpDirectionY = 0.43;
+            UpDirectionZ = 0.82;
         }
     }
 }
