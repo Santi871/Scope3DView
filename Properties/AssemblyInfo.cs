@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 
 // [MANDATORY] The assembly versioning
 //Should be incremented for each new release build of a plugin
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.1.0.1")]
+[assembly: AssemblyFileVersion("1.1.0.1")]
 
 // [MANDATORY] The name of your plugin
 [assembly: AssemblyTitle("Scope 3D View")]
@@ -53,7 +53,9 @@ using System.Runtime.InteropServices;
 //[Optional] An additional url to an example example screenshot of your plugin in action
 [assembly: AssemblyMetadata("AltScreenshotURL", "https://github.com/Santi871/Scope3DView/blob/master/Images/Screenshot3.png?raw=true")]
 //[Optional] An in-depth description of your plugin
-[assembly: AssemblyMetadata("LongDescription", @"This plugin adds a dockable 3D view of the connected telescope. Ported from [GSPoint3D](https://github.com/rmorgan001/GS.Point3d).")]
+[assembly: AssemblyMetadata("LongDescription", @"This plugin adds a dockable 3D view of the connected telescope to the imaging tab. Ported from [GSPoint3D](https://github.com/rmorgan001/GS.Point3d).
+
+The dockable can be enabled in the imaging tab by clicking the '3D' icon in the info bar.")]
 
 
 // Setting ComVisible to false makes the types in this assembly not visible
