@@ -12,7 +12,7 @@
       <Value Profile="(Default)">Default</Value>
     </Setting>
     <Setting Name="PollingInterval" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">100</Value>
+      <Value Profile="(Default)">300</Value>
     </Setting>
     <Setting Name="LookDirectionX" Type="System.Double" Scope="User">
       <Value Profile="(Default)">-2616</Value>

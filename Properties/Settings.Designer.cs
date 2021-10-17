@@ -61,7 +61,7 @@ namespace Scope3DView.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
         public int PollingInterval {
             get {
                 return ((int)(this["PollingInterval"]));
