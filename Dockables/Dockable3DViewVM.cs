@@ -27,7 +27,6 @@ namespace Scope3DView.Dockables
     public class Dockable3DViewVM : DockableVM
     {
         private readonly ITelescopeMediator _telescopeMediator;
-        private readonly IProfileService _profileService;
         private readonly ITelescopeModel _telescopeModel;
         private readonly Material _compassN, _compassS;
         private CancellationTokenSource _cancellationTokenSource;
@@ -41,18 +40,18 @@ namespace Scope3DView.Dockables
         {
             Title = "3D View";
             
+            // load plugin icon
             var dict = new ResourceDictionary
             {
                 Source = new Uri("Scope3DView;component/Options.xaml", UriKind.RelativeOrAbsolute)
             };
             ImageGeometry = (GeometryGroup)dict["Scope3DView_SVG"];
             ImageGeometry.Freeze();
-            
-            _profileService = profileService;
+
             _telescopeMediator = telescopeMediator;
             _telescopeModel = new TelescopeModel(_telescopeMediator);
             Settings.Default.PropertyChanged += OnSettingChanged;
-            _profileService.ActiveProfile.ColorSchemaSettings.PropertyChanged += ColorSchemaSettingsOnPropertyChanged;
+            profileService.ActiveProfile.ColorSchemaSettings.PropertyChanged += ColorSchemaSettingsOnPropertyChanged;
             
             // load the 3D model and reset camera on startup
             Application.Current.Dispatcher.Invoke(LoadModel);
@@ -80,6 +79,7 @@ namespace Scope3DView.Dockables
         #region Properties
         
         public bool IsTool => false;
+        private bool SouthernHemisphere => _telescopeMediator.GetInfo().SiteLatitude < 0;
         public double XOffset => Settings.Default.DecOffset;
         public double YOffset => Settings.Default.RaOffset;
         public double ZOffset => 0;
@@ -237,15 +237,11 @@ namespace Scope3DView.Dockables
             }
         }
 
-        private bool SouthernHemisphere => _telescopeMediator.GetInfo().SiteLatitude < 0;
-        public PierSide PierSide => _telescopeMediator.GetInfo().SideOfPier;
-
-        public double SideRealtime => _telescopeMediator.GetInfo().SiderealTime;
-        
         #endregion
         
         private void ColorSchemaSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            // reload model when profile colors change
             Application.Current.Dispatcher.Invoke(LoadModel);
         }
         
@@ -278,6 +274,10 @@ namespace Scope3DView.Dockables
             }
         }
         
+        /// <summary>
+        /// Monitors connected telescope every interval to update the 3D model
+        /// </summary>
+        /// <param name="pollInterval">Telescope polling interval</param>
         private async Task TelescopePollingTask(TimeSpan pollInterval)
         {
             using (_cancellationTokenSource = new CancellationTokenSource())
@@ -312,6 +312,9 @@ namespace Scope3DView.Dockables
             }
         }
 
+        /// <summary>
+        /// Resets the viewport camera to the defined starting position
+        /// </summary>
         private void ResetCamera()
         {
             var lookDirectionX = Settings.Default.LookDirectionX;
@@ -331,6 +334,10 @@ namespace Scope3DView.Dockables
             Position = new Point3D(cameraPositionX, cameraPositionY, cameraPositionZ);
         }
 
+        /// <summary>
+        /// Obtains a brush to color the model's OTA based on user and profile color settings
+        /// </summary>
+        /// <returns></returns>
         private Brush GetOtaBrush()
         {
             var converter = new BrushConverter();
@@ -353,6 +360,9 @@ namespace Scope3DView.Dockables
             return accentbrush;
         }
 
+        /// <summary>
+        /// Reads a 3D model from disk and loads it
+        /// </summary>
         private void LoadModel()
         {
             Logger.Info($"Attempting to load telescope model {Settings.Default.ModelType}");
