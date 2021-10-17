@@ -54,12 +54,12 @@ namespace Scope3DView.Classes
         public double[] GetModelRotation()
         {
             var position = _telescopeMediator.GetCurrentPosition();
-            var southernHemisphere = _telescopeMediator.GetInfo().SiteLatitude < 0;
+            var latitude = _telescopeMediator.GetInfo().SiteLatitude;
+            var southernHemisphere = latitude < 0;
             
             var raDec = _axes.RaDecToAxesXY(AlignMode.algGermanPolar, new[]{position.RA, position.Dec});
             var axes = Model3D.RotateModel( raDec[0], raDec[1], southernHemisphere);
-            //TODO only set when telescope connected
-            axes[2] = Math.Round(Math.Abs(_telescopeMediator.GetInfo().SiteLatitude), 2);
+            axes[2] = Math.Round(Math.Abs(latitude), 2);
             return axes;
         }
     }
