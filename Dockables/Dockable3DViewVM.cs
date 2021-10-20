@@ -78,7 +78,7 @@ namespace Scope3DView.Dockables
 
         #region Properties
         
-        public bool IsTool => false;
+        public override bool IsTool => false;
         private bool SouthernHemisphere => _telescopeMediator.GetInfo().SiteLatitude < 0;
         public double XOffset => Settings.Default.DecOffset;
         public double YOffset => Settings.Default.RaOffset;
@@ -307,7 +307,7 @@ namespace Scope3DView.Dockables
                         Compass = null;
                     }
                     
-                    await Task.Delay(pollInterval, _cancellationTokenSource.Token);
+                    await Task.Delay(pollInterval, _cancellationTokenSource.Token).ConfigureAwait(false);
                 }
             }
         }
