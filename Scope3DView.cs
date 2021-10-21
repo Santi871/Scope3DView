@@ -1,4 +1,18 @@
-﻿using NINA.Plugin;
+﻿/*
+    Copyright(C) 2021  Santiago Vegega
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+using NINA.Plugin;
 using NINA.Plugin.Interfaces;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -8,13 +22,6 @@ using NINA.Core.Utility;
 using Scope3DView.Properties;
 
 namespace Scope3DView {
-    /// <summary>
-    /// This class exports the IPluginManifest interface and will be used for the general plugin information and options
-    /// The base class "PluginBase" will populate all the necessary Manifest Meta Data out of the AssemblyInfo attributes. Please fill these accoringly
-    /// 
-    /// An instance of this class will be created and set as datacontext on the plugin options tab in N.I.N.A. to be able to configure global plugin settings
-    /// The user interface for the settings will be defined by a DataTemplate with the key having the naming convention "<MyPlugin.Name>_Options" where MyPlugin.Name corresponds to the AssemblyTitle - In this template example it is found in the Options.xaml
-    /// </summary>
     [Export(typeof(IPluginManifest))]
     public class Scope3DView : PluginBase, INotifyPropertyChanged
     {
