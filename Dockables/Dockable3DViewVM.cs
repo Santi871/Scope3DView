@@ -65,6 +65,7 @@ namespace Scope3DView.Dockables
             _telescopeMediator = telescopeMediator;
             _telescopeModel = new TelescopeModel(_telescopeMediator);
             Settings.Default.PropertyChanged += OnSettingChanged;
+            Settings.Default.TeardownRequested = false;
             profileService.ActiveProfile.ColorSchemaSettings.PropertyChanged += ColorSchemaSettingsOnPropertyChanged;
             
             // load the 3D model and reset camera on startup
@@ -265,6 +266,13 @@ namespace Scope3DView.Dockables
 
             switch (e.PropertyName)
             {
+                case "TeardownRequested":
+                    if (Settings.Default.TeardownRequested)
+                    {
+                        Teardown();
+                    }
+                    break;
+                
                 case "RaOffset":
                 case "DecOffset":
                 case "OtaAccentColor":
@@ -296,7 +304,8 @@ namespace Scope3DView.Dockables
         {
             using (_cancellationTokenSource = new CancellationTokenSource())
             {
-                while (!_cancellationTokenSource.IsCancellationRequested)
+                var token = _cancellationTokenSource.Token;
+                while (!token.IsCancellationRequested)
                 {
                     var pos = _telescopeMediator.GetCurrentPosition();
                     if (pos != null)
@@ -321,7 +330,10 @@ namespace Scope3DView.Dockables
                         Compass = null;
                     }
                     
-                    await Task.Delay(pollInterval, _cancellationTokenSource.Token).ConfigureAwait(false);
+                    // NINA doesn't appear to wait for a cancellable Task.Delay to exit before exiting
+                    // so using the non-cancellable overload as a workaround for now
+                    // ReSharper disable once MethodSupportsCancellation
+                    await Task.Delay(pollInterval).ConfigureAwait(false);
                 }
             }
         }
@@ -395,6 +407,11 @@ namespace Scope3DView.Dockables
             }
             Model = model;
             Logger.Info($"Telescope model {Settings.Default.ModelType} loaded");
+        }
+
+        public void Teardown()
+        {
+            _cancellationTokenSource?.Cancel();
         }
     }
 }
