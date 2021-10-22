@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 
 // [MANDATORY] The assembly versioning
 //Should be incremented for each new release build of a plugin
-[assembly: AssemblyVersion("1.1.1.0")]
-[assembly: AssemblyFileVersion("1.1.1.0")]
+[assembly: AssemblyVersion("1.1.2.0")]
+[assembly: AssemblyFileVersion("1.1.2.0")]
 
 // [MANDATORY] The name of your plugin
 [assembly: AssemblyTitle("Scope 3D View")]
@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 
 // The minimum Version of N.I.N.A. that this plugin is compatible with
-[assembly: AssemblyMetadata("MinimumApplicationVersion", "1.11.0.1165")]
+[assembly: AssemblyMetadata("MinimumApplicationVersion", "1.11.0.1168")]
 
 // The license your plugin code is using
 [assembly: AssemblyMetadata("License", "GPL-3.0")]
@@ -44,7 +44,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("Tags", "Template,Sequencer")]
 
 //[Optional] A link that will show a log of all changes in between your plugin's versions
-[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/Santi871/Scope3DView/commits/master")]
+[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/Santi871/Scope3DView/releases/")]
 
 //[Optional] The url to a featured logo that will be displayed in the plugin list next to the name
 [assembly: AssemblyMetadata("FeaturedImageURL", "https://github.com/Santi871/Scope3DView/blob/master/Images/Screenshot1.png?raw=true")]
