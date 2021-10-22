@@ -226,5 +226,17 @@ namespace Scope3DView.Properties {
                 this["AutoOtaColorChange"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TeardownRequested {
+            get {
+                return ((bool)(this["TeardownRequested"]));
+            }
+            set {
+                this["TeardownRequested"] = value;
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ using NINA.Plugin.Interfaces;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using NINA.Core.Utility;
 using Scope3DView.Properties;
@@ -39,7 +40,7 @@ namespace Scope3DView {
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
         #region Properties
 
         private ICommand _resetSettingsCommand;
@@ -49,6 +50,17 @@ namespace Scope3DView {
             {
                 _resetSettingsCommand = new RelayCommand(param => ResetSettings());
                 return _resetSettingsCommand;
+            }
+        }
+
+        public bool TeardownRequested
+        {
+            get => Settings.Default.TeardownRequested;
+            set
+            {
+                Settings.Default.TeardownRequested = value;
+                Settings.Default.Save();
+                NotifyPropertyChanged();
             }
         }
         
@@ -247,6 +259,14 @@ namespace Scope3DView {
             UpDirectionX = 0.35;
             UpDirectionY = 0.43;
             UpDirectionZ = 0.82;
+        }
+        
+        public override async Task Teardown()
+        {
+            TeardownRequested = true;
+            // wait for ongoing polling to be done before exiting
+            // (NINA doesn't appear to support cancellable Task.Delay for the moment)
+            await Task.Delay(Settings.Default.PollingInterval);
         }
     }
 }
