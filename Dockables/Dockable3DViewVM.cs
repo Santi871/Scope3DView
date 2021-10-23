@@ -72,17 +72,9 @@ namespace Scope3DView.Dockables
             Application.Current.Dispatcher.Invoke(LoadModel);
             ResetCamera();
 
-            try
-            {
-                _compassN = MaterialHelper.CreateImageMaterial(Model3D.GetCompassFile(false), 100);
-                _compassS = MaterialHelper.CreateImageMaterial(Model3D.GetCompassFile(true), 100);
-            }
-            catch (FileNotFoundException e)
-            {
-                Notification.ShowError($"Scope 3D View could not find compass material files: {e.Message}");
-                Logger.Error($"Could not find compass material files: {e.Message}");
-            }
-
+            _compassN = LoadCompassFile(false);
+            _compassS = LoadCompassFile(true);
+            
             var telescopePollingCommand = new AsyncCommand<bool>(async () =>
             {
                 await TelescopePollingTask(TimeSpan.FromMilliseconds(Settings.Default.PollingInterval));
@@ -253,6 +245,30 @@ namespace Scope3DView.Dockables
         }
 
         #endregion
+        
+        /// <summary>
+        /// Reads a compass image file and loads it into memory
+        /// </summary>
+        /// <param name="southernHemisphere">Whether to load the southern or northern hemisphere file</param>
+        /// <returns>Material for the compass texture</returns>
+        private static Material LoadCompassFile(bool southernHemisphere)
+        {
+            Material material = null;
+
+            try
+            {
+                var compassImagePath = Model3D.GetCompassFile(southernHemisphere);
+                var compassImage = Model3D.LoadImageToMemory(compassImagePath);
+                material = MaterialHelper.CreateImageMaterial(compassImage, 100);
+            }
+            catch (FileNotFoundException e)
+            {
+                Notification.ShowError($"Scope 3D View could not find compass material files: {e.Message}");
+                Logger.Error($"Could not find compass material files: {e.Message}");
+            }
+
+            return material;
+        }
         
         private void ColorSchemaSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
