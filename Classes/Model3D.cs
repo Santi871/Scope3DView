@@ -15,6 +15,7 @@
 
 using System;
 using System.Reflection;
+using System.Windows.Media.Imaging;
 
 namespace Scope3DView.Classes
 {
@@ -70,6 +71,25 @@ namespace Scope3DView.Classes
             var file = new Uri(filePath).LocalPath;
             return file;
         }
+        
+        public static BitmapImage LoadImageToMemory(string path)
+        {
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            System.IO.Stream stream = System.IO.File.Open(path, System.IO.FileMode.Open);
+            image.StreamSource = new System.IO.MemoryStream();
+            stream.CopyTo(image.StreamSource);
+            image.EndInit();
+
+            stream.Close();
+            stream.Dispose();
+            image.StreamSource.Close();
+            image.StreamSource.Dispose();
+
+            return image;
+        }
+        
         public static double[] RotateModel(double ax, double ay, bool southernHemisphere)
         {
             var axes = new[] { 0.0, 0.0, 0.0 };
