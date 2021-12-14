@@ -23,6 +23,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 using HelixToolkit.Wpf;
 using NINA.Core.Enum;
 using NINA.Core.Utility;
@@ -64,12 +65,12 @@ namespace Scope3DView.Dockables
 
             _telescopeMediator = telescopeMediator;
             _telescopeModel = new TelescopeModel(_telescopeMediator);
-            Settings.Default.PropertyChanged += OnSettingChanged;
             Settings.Default.TeardownRequested = false;
+            Settings.Default.PropertyChanged += OnSettingChanged;
             profileService.ActiveProfile.ColorSchemaSettings.PropertyChanged += ColorSchemaSettingsOnPropertyChanged;
             
             // load the 3D model and reset camera on startup
-            Application.Current.Dispatcher.Invoke(LoadModel);
+            LoadModel();
             ResetCamera();
 
             _compassN = LoadCompassFile(false);
@@ -77,7 +78,7 @@ namespace Scope3DView.Dockables
             
             var telescopePollingCommand = new AsyncCommand<bool>(async () =>
             {
-                await TelescopePollingTask(TimeSpan.FromMilliseconds(Settings.Default.PollingInterval));
+                await TelescopePollingTask(TimeSpan.FromMilliseconds(Settings.Default.RefreshInterval));
                 return true;
             });
             telescopePollingCommand.ExecuteAsync(null);
@@ -273,7 +274,7 @@ namespace Scope3DView.Dockables
         private void ColorSchemaSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             // reload model when profile colors change
-            Application.Current.Dispatcher.Invoke(LoadModel);
+            LoadModel();
         }
         
         private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
@@ -294,7 +295,7 @@ namespace Scope3DView.Dockables
                 case "OtaAccentColor":
                 case "AutoOtaColorChange":
                 case "ModelType":
-                    Application.Current.Dispatcher.Invoke(LoadModel);
+                    LoadModel();
                     break;
                 
                 case "LookDirectionX":
@@ -336,9 +337,12 @@ namespace Scope3DView.Dockables
                         
                         // poll scope position and rotate the 3D model
                         var newPosition = _telescopeModel.GetModelRotation();
-                        XAxis = newPosition[1];
-                        YAxis = newPosition[0];
-                        ZAxis = newPosition[2];
+                        await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                            new Action(() => UpdateModelPosition(
+                                newPosition[1],
+                                newPosition[0],
+                                newPosition[2])
+                            ));
                     }
                     else
                     {
@@ -370,10 +374,13 @@ namespace Scope3DView.Dockables
             var cameraPositionX = Settings.Default.CameraPositionX;
             var cameraPositionY = Settings.Default.CameraPositionY;
             var cameraPositionZ = Settings.Default.CameraPositionZ;
-            
-            LookDirection = new Vector3D(lookDirectionX, lookDirectionY, lookDirectionZ);
-            UpDirection = new Vector3D(upDirectionX, upDirectionY, upDirectionZ);
-            Position = new Point3D(cameraPositionX, cameraPositionY, cameraPositionZ);
+
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                LookDirection = new Vector3D(lookDirectionX, lookDirectionY, lookDirectionZ);
+                UpDirection = new Vector3D(upDirectionX, upDirectionY, upDirectionZ);
+                Position = new Point3D(cameraPositionX, cameraPositionY, cameraPositionZ);
+            }));
         }
 
         /// <summary>
@@ -402,6 +409,13 @@ namespace Scope3DView.Dockables
             return accentbrush;
         }
 
+        private void UpdateModelPosition(double x, double y, double z)
+        {
+            XAxis = x;
+            YAxis = y;
+            ZAxis = z;
+        }
+
         /// <summary>
         /// Reads a 3D model from disk and loads it
         /// </summary>
@@ -409,20 +423,23 @@ namespace Scope3DView.Dockables
         {
             Logger.Info($"Attempting to load telescope model {Settings.Default.ModelType}");
             var result = Enum.TryParse(Settings.Default.ModelType, out Model3DType modelType);
-            var accentbrush = GetOtaBrush();
             
-            Model3DGroup model = null;
-            try
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
-                model = _telescopeModel.LoadModel(result ? modelType : Model3DType.Default, accentbrush);
-            }
-            catch (FileNotFoundException e)
-            {
-                Notification.ShowError($"Scope 3D View failed to load 3D model files: {e.Message}");
-                Logger.Error($"Failed to load telescope 3D model files: {e.Message}");
-            }
-            Model = model;
-            Logger.Info($"Telescope model {Settings.Default.ModelType} loaded");
+                var accentbrush = GetOtaBrush();
+            
+                Model3DGroup model = null;
+                try
+                {
+                    model = _telescopeModel.LoadModel(result ? modelType : Model3DType.Default, accentbrush);
+                }
+                catch (FileNotFoundException e)
+                {
+                    Notification.ShowError($"Scope 3D View failed to load 3D model files: {e.Message}");
+                    Logger.Error($"Failed to load telescope 3D model files: {e.Message}");
+                }
+                Model = model;
+            }));
         }
 
         public void Teardown()
