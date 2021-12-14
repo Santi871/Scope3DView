@@ -11,9 +11,6 @@
     <Setting Name="ModelType" Type="System.String" Scope="User">
       <Value Profile="(Default)">Default</Value>
     </Setting>
-    <Setting Name="PollingInterval" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">300</Value>
-    </Setting>
     <Setting Name="LookDirectionX" Type="System.Double" Scope="User">
       <Value Profile="(Default)">-2616</Value>
     </Setting>
@@ -55,6 +52,9 @@
     </Setting>
     <Setting Name="TeardownRequested" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="RefreshInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2000</Value>
     </Setting>
   </Settings>
 </SettingsFile>
