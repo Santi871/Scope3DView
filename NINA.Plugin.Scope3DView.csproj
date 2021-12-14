@@ -59,6 +59,10 @@
     <Reference Include="CsvHelper, Version=27.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.27.1.1\lib\net47\CsvHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Cyotek.Drawing.BitmapFont, Version=1.0.0.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221">
+      <HintPath>..\packages\Cyotek.Drawing.BitmapFont.2.0.0\lib\net48\Cyotek.Drawing.BitmapFont.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -69,12 +73,12 @@
       <HintPath>..\packages\Fastenshtein.1.0.0.8\lib\net452\Fastenshtein.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HelixToolkit, Version=2.18.0.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d">
-      <HintPath>..\packages\HelixToolkit.2.18.0\lib\netstandard1.1\HelixToolkit.dll</HintPath>
+    <Reference Include="HelixToolkit, Version=2.20.0.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d">
+      <HintPath>..\packages\HelixToolkit.2.20.0\lib\netstandard1.1\HelixToolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HelixToolkit.Wpf, Version=2.18.0.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d">
-      <HintPath>..\packages\HelixToolkit.Wpf.2.18.0\lib\net45\HelixToolkit.Wpf.dll</HintPath>
+    <Reference Include="HelixToolkit.Wpf, Version=2.20.0.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d">
+      <HintPath>..\packages\HelixToolkit.Wpf.2.20.0\lib\net45\HelixToolkit.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="K4os.Compression.LZ4, Version=1.2.12.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d">
@@ -98,40 +102,40 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nikoncswrapper, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.Equipment.1.11.0.1167-nightly\lib\net48\nikoncswrapper.dll</HintPath>
+      <HintPath>..\packages\NINA.Equipment.2.0.0.2013-beta\lib\net48\nikoncswrapper.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.Astrometry, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.Astrometry.1.11.0.1167-nightly\lib\net48\NINA.Astrometry.dll</HintPath>
+    <Reference Include="NINA.Astrometry, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.Astrometry.2.0.0.2013-beta\lib\net48\NINA.Astrometry.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.Core, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.Core.1.11.0.1167-nightly\lib\net48\NINA.Core.dll</HintPath>
+    <Reference Include="NINA.Core, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.Core.2.0.0.2013-beta\lib\net48\NINA.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.Equipment, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.Equipment.1.11.0.1167-nightly\lib\net48\NINA.Equipment.dll</HintPath>
+    <Reference Include="NINA.Equipment, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.Equipment.2.0.0.2013-beta\lib\net48\NINA.Equipment.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.Image, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.Image.1.11.0.1167-nightly\lib\net48\NINA.Image.dll</HintPath>
+    <Reference Include="NINA.Image, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.Image.2.0.0.2013-beta\lib\net48\NINA.Image.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.MGEN, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.MGEN.1.11.0.1167-nightly\lib\net48\NINA.MGEN.dll</HintPath>
+    <Reference Include="NINA.MGEN, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.MGEN.2.0.0.2013-beta\lib\net48\NINA.MGEN.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.PlateSolving, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.PlateSolving.1.11.0.1167-nightly\lib\net48\NINA.PlateSolving.dll</HintPath>
+    <Reference Include="NINA.PlateSolving, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.PlateSolving.2.0.0.2013-beta\lib\net48\NINA.PlateSolving.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.Plugin, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.Plugin.1.11.0.1167-nightly\lib\net48\NINA.Plugin.dll</HintPath>
+    <Reference Include="NINA.Plugin, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.Plugin.2.0.0.2013-beta\lib\net48\NINA.Plugin.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.Profile, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.Profile.1.11.0.1167-nightly\lib\net48\NINA.Profile.dll</HintPath>
+    <Reference Include="NINA.Profile, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.Profile.2.0.0.2013-beta\lib\net48\NINA.Profile.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.Sequencer, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.Sequencer.1.11.0.1167-nightly\lib\net48\NINA.Sequencer.dll</HintPath>
+    <Reference Include="NINA.Sequencer, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.Sequencer.2.0.0.2013-beta\lib\net48\NINA.Sequencer.dll</HintPath>
     </Reference>
-    <Reference Include="NINA.WPF.Base, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINA.WPF.Base.1.11.0.1167-nightly\lib\net48\NINA.WPF.Base.dll</HintPath>
+    <Reference Include="NINA.WPF.Base, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINA.WPF.Base.2.0.0.2013-beta\lib\net48\NINA.WPF.Base.dll</HintPath>
     </Reference>
-    <Reference Include="NINACustomControlLibrary, Version=1.11.0.1167, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NINACustomControlLibrary.1.11.0.1167-nightly\lib\net48\NINACustomControlLibrary.dll</HintPath>
+    <Reference Include="NINACustomControlLibrary, Version=2.0.0.2013, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NINACustomControlLibrary.2.0.0.2013-beta\lib\net48\NINACustomControlLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Nito.AsyncEx.Context, Version=5.1.2.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Nito.AsyncEx.Context.5.1.2\lib\net461\Nito.AsyncEx.Context.dll</HintPath>
@@ -193,6 +197,34 @@
     </Reference>
     <Reference Include="SHA3Managed, Version=0.9.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SHA3.0.9.2\lib\net40\SHA3Managed.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
+      <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
+      <HintPath>..\packages\SharpDX.D3DCompiler.4.2.0\lib\net45\SharpDX.D3DCompiler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
+      <HintPath>..\packages\SharpDX.Direct2D1.4.2.0\lib\net45\SharpDX.Direct2D1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
+      <HintPath>..\packages\SharpDX.Direct3D11.4.2.0\lib\net45\SharpDX.Direct3D11.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D9, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
+      <HintPath>..\packages\SharpDX.Direct3D9.4.2.0\lib\net45\SharpDX.Direct3D9.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
+      <HintPath>..\packages\SharpDX.DXGI.4.2.0\lib\net45\SharpDX.DXGI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Mathematics, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
+      <HintPath>..\packages\SharpDX.Mathematics.4.2.0\lib\net45\SharpDX.Mathematics.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
