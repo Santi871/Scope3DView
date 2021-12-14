@@ -70,7 +70,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                         <TextBlock Width="200" Text="Polling interval (requires restart)" VerticalAlignment="Center"
                                    HorizontalAlignment="Right"/>
-                        <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="ms" MinWidth="140" Text="{Binding PollingInterval}" />
+                        <ninactrl:UnitTextBox Margin="5,0,0,0" VerticalAlignment="Center" Unit="ms" MinWidth="140" Text="{Binding RefreshInterval}" />
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
